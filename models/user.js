@@ -9,18 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Product, {
-        foreignKey: "product_id",
-        as: "product",
-      });
-      User.hasMany(models.Transaction, {
-        foreignKey: "transaction_id",
-        as: "transaction",
-      });
-      User.hasMany(models.Notification, {
-        foreignKey: "notification_id",
-        as: "notification",
-      });
+      // User.hasMany(models.Product, {
+      //   foreignKey: "product_id",
+      //   as: "product",
+      // });
+      // User.hasMany(models.Transaction, {
+      //   foreignKey: "transaction_id",
+      //   as: "transaction",
+      // });
+      // User.hasMany(models.Notification, {
+      //   foreignKey: "notification_id",
+      //   as: "notification",
+      // });
     }
   }
   User.init(
@@ -28,14 +28,24 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
-      profile_img: DataTypes.STRING,
-      phone: DataTypes.STRING,
-      address: DataTypes.STRING,
+      profile_img: {
+        type: DataTypes.STRING,
+        defaultValue: "",
+      },
+      phone: {
+        type: DataTypes.STRING,
+        defaultValue: "",
+      },
+      address: {
+        type: DataTypes.STRING,
+        defaultValue: "",
+      },
     },
     {
       sequelize,
       modelName: "User",
     }
   );
+
   return User;
 };
