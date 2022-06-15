@@ -22,15 +22,15 @@ module.exports = {
       },
       profile_img: {
         type: Sequelize.STRING,
-        allowNull: false,
+        defaultValue: "",
       },
       phone: {
         type: Sequelize.STRING,
-        allowNull: false,
+        defaultValue: "",
       },
       address: {
         type: Sequelize.STRING,
-        allowNull: false,
+        defaultValue: "",
       },
       createdAt: {
         allowNull: false,
