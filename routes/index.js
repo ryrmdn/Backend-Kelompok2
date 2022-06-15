@@ -18,5 +18,6 @@ router.get("/product", function (req, res, next) {
 });
 
 router.post("/product/add", verify.auth, product.addProduct);
+router.post("/product/:id", verify.auth, product.editProduct)
 
 module.exports = router;
