@@ -9,18 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // User.hasMany(models.Product, {
-      //   foreignKey: "product_id",
-      //   as: "product",
-      // });
-      // User.hasMany(models.Transaction, {
-      //   foreignKey: "transaction_id",
-      //   as: "transaction",
-      // });
-      // User.hasMany(models.Notification, {
-      //   foreignKey: "notification_id",
-      //   as: "notification",
-      // });
+      User.hasMany(models.Product, {
+        foreignKey: "id",
+        as: "product",
+      });
+      User.hasMany(models.Transaction, {
+        foreignKey: "transaction_id",
+        as: "transaction",
+      });
+      User.hasMany(models.Notification, {
+        foreignKey: "notification_id",
+        as: "notification",
+      });
     }
   }
   User.init(
