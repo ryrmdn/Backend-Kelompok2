@@ -1,38 +1,39 @@
-// const { Product } = require('../models')
+const { Product } = require('../models')
 
 module.exports = class {
     static async addProduct(req, res) {
         try {
-            // const cekData = await this.addProduct.findOne({ where: {product_name: req.body.name} })
+            const cekData = await Product.findOne({ where: {product_name: req.body.product_name} })
 
-            // if(cekData) {
-            //     res.status(400).send({
-            //         status: 400,
-            //         message: 'Produk sudah terdaftar!'
-            //     })
-            // }
+            if(cekData) {
+                res.status(400).send({
+                    status: 400,
+                    message: 'Nama produk tidak boleh sama!'
+                })
+            }
 
-            // else {
-                // const result = await Product.create({
-                //     user_id: ,
-                //     product_name: ,
-                //     product category: ,
-                //     product_desc: ,
-                //     product_price: ,
-                //     product_img: ,
-                //     location: ,
-                //     status:
-                // })
+            else {
+                const result = await Product.create({
+                    user_id: req.body.user_id,
+                    product_name: req.body.product_name,
+                    product_category: req.body.product_category,
+                    product_desc: req.body.product_desc,
+                    product_price: req.body.product_price,
+                    product_img: req.body.product_img,
+                    location: req.body.location,
+                    status: req.body.status
+                })
 
                 res.status(201).json({
                     status: 201,
-                    message: 'Data product telah disimpan!',
-                    data: req.body
+                    message: 'Data produk telah disimpan!',
+                    data: result
                 })
-            // }
+            }
         }
 
         catch(err) {
+            console.log(err)
             res.send(err)
         }
     }

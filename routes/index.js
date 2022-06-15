@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+var product = require('../controller/productController')
+var verify = require('../middleware/isLogin')
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -12,10 +15,7 @@ router.get('/product', function(req, res, next) {
   res.send('Menampilkan semua product')
 })
 
-router.post('/product/add', function(req, res, next) {
-  res.status(200)
-  res.send('Menamahkan product baru')
-})
+router.post('/product/add', verify.auth, product.addProduct)
 
 
 module.exports = router;
