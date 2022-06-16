@@ -1,6 +1,93 @@
 const { Product } = require('../models')
+const { Op } = require('sequelize')
 
 module.exports = class {
+    static async getProduct(req, res) {
+        try {
+            const result = await Product.findAll()
+            res.status(200).json({
+                status: 200,
+                data: result
+            })
+        }
+
+        catch(err) {
+            console.log(err)
+            res.send(err)
+        }
+    }
+
+    static async getUserProduct(req, res) {
+        try {
+            const result = await Product.findAll({ where: {user_id: req.params.userid} })
+            res.status(200).json({
+                status: 200,
+                data: result
+            })
+        }
+
+        catch(err) {
+            console.log(err)
+            res.send(err)
+        }
+    }
+
+    static async getProductByName (req, res) {
+        try {
+            const result = await Product.findAll({ where: { product_name: {[Op.like]: '%' + req.body.productName + '%'}} })
+            res.status(200).json({
+                status: 200,
+                data: result
+            })
+        }
+
+        catch(err) {
+            console.log(err)
+            res.send(err)
+        }
+    }
+
+    static async getProductByCategory(req, res) {
+        try {
+            const result = await Product.findAll({ where: { product_category: req.body.category } })
+            res.status(200).json({
+                status: 200,
+                data: result
+            })
+        }
+
+        catch(err) {
+            console.log(err)
+            res.send(err)
+        }
+    }
+
+    static async getInfoProduct(req, res) {
+        const cekData = await Product.findOne({ where: {id: req.params.id} })
+
+        if(!cekData) {
+            res.status(400).send({
+                status: 400,
+                message: 'Produk tidak ditemukan!'
+            })
+        }
+
+        else {
+            try {
+                const result = await Product.findAll({ where: {id: req.params.id} })
+                res.status(200).json({
+                    status: 200,
+                    data: result
+                })
+            }
+    
+            catch(err) {
+                console.log(err)
+                res.send(err)
+            }
+        }
+    }
+
     static async addProduct(req, res) {
         try {
             const cekData = await Product.findOne({ where: {product_name: req.body.product_name} })
