@@ -19,5 +19,6 @@ router.post("/product/filterByName", product.getProductByName)
 router.post("/product/filterByCategory", product.getProductByCategory)
 router.post("/product/add", verify.auth, product.addProduct);
 router.post("/product/:id", verify.auth, product.editProduct)
+router.delete("/product/:id", verify.auth, product.DeleteProduct);
 
 module.exports = router;
