@@ -6,8 +6,8 @@ function auth(req, res, next) {
     if(!token) { return res.status(401).send('Silahkan login terlebih dahulu!') }
 
     try {
-        const verifikasi = jwt.verify(token, process.env.TOKEN_RAHASIA)
-        req.user = verifikasi
+        // const verifikasi = jwt.verify(token, process.env.TOKEN_RAHASIA)
+        // req.user = verifikasi
         next()
     }
 

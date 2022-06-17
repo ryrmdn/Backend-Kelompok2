@@ -12,11 +12,12 @@ router.get("/", function (req, res, next) {
 });
 
 /* PRODUCT CRUD */
-router.get("/product", function (req, res, next) {
-  res.status(200);
-  res.send("Menampilkan semua product");
-});
-
+router.get("/product", product.getProduct)
+router.get("/product/:userid", product.getUserProduct)
+router.get("/product/info/:id", product.getInfoProduct)
+router.post("/product/filterByName", product.getProductByName)
+router.post("/product/filterByCategory", product.getProductByCategory)
 router.post("/product/add", verify.auth, product.addProduct);
+router.post("/product/:id", verify.auth, product.editProduct)
 
 module.exports = router;
