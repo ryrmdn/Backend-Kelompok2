@@ -1,34 +1,67 @@
 const { User } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("../helper/jwt");
+const multer = require("../middleware/multer");
 
 module.exports = class {
-  //   static async getUsers(req, res, next) {
-  //     try {
-  //       const users = await User.findAll();
-  //       // console.log(result);
-  //       res.status(200).send({
-  //         status: 200,
-  //         data: users,
-  //       });
-  //     } catch (error) {
-  //       console.log(error);
-  //       res.status(500).send(error);
-  //     }
-  //   }
-  static getUsers(req, res, next) {
-    User.findAll()
-      .then((result) => {
-        console.log(result);
-        res.status(200).send({
-          status: 200,
-          data: result,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).send(err);
+  static async getUsers(req, res) {
+    try {
+      const result = await User.findAll();
+      res.status(200).json({
+        status: 200,
+        data: result,
       });
+    } catch (err) {
+      console.log(err);
+      res.send(err);
+    }
+    // try {
+    //   const users = await User.findAll();
+    //   console.log(users);
+    //   res.status(200).send({
+    //     status: 200,
+    //     data: users,
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    //   res.status(500).send(error);
+    // }
+  }
+
+  static async editUser(req, res) {
+    const id = req.params.id;
+    const cekData = await User.findOne({ where: { id } });
+
+    if (!cekData) {
+      res.status(400).send({
+        status: 400,
+        message: "User tidak ditemukan!",
+      });
+    } else {
+      try {
+        const result = await User.update(
+          {
+            name: req.body.name,
+            profile_img: req.file.path,
+            phone: req.body.phone,
+            kota: req.body.kota,
+            address: req.body.address,
+          },
+          { where: { id } }
+        );
+        res
+          .status(201)
+          .json({
+            status: 201,
+            message: "Data user ditambahkan",
+            data: result,
+          })
+          .end();
+      } catch (err) {
+        console.log(err);
+        res.send(err);
+      }
+    }
   }
 
   static async Register(req, res, next) {
