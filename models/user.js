@@ -13,14 +13,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id",
         as: "product",
       });
-      User.hasMany(models.Transaction, {
-        foreignKey: "transaction_id",
-        as: "transaction",
-      });
-      User.hasMany(models.Notification, {
-        foreignKey: "notification_id",
-        as: "notification",
-      });
+      // User.hasMany(models.Transaction, {
+      //   foreignKey: "transaction_id",
+      //   as: "transaction",
+      // });
+      // User.hasMany(models.Notification, {
+      //   foreignKey: "notification_id",
+      //   as: "notification",
+      // });
     }
   }
   User.init(

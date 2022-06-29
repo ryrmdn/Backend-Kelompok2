@@ -21,6 +21,8 @@ module.exports = (sequelize, DataTypes) => {
       to_userId: DataTypes.STRING,
       product_id: DataTypes.STRING,
       req_price: DataTypes.INTEGER,
+      status: DataTypes.STRING,
+      isRead: DataTypes.BOOLEAN
     },
     {
       sequelize,
