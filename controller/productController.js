@@ -106,7 +106,7 @@ module.exports = class {
                     product_category: req.body.product_category,
                     product_desc: req.body.product_desc,
                     product_price: req.body.product_price,
-                    product_img: req.body.product_img,
+                    product_img: req.file.path,
                     location: req.body.location,
                     status: req.body.status
                 })
@@ -143,7 +143,7 @@ module.exports = class {
                     product_category: req.body.product_category,
                     product_desc: req.body.product_desc,
                     product_price: req.body.product_price,
-                    product_img: req.body.product_img,
+                    product_img: req.file.path,
                     location: req.body.location,
                     status: req.body.status
                 }, { where: {id: req.params.id} })
@@ -151,6 +151,41 @@ module.exports = class {
                 res.status(201).json({
                     status: 201,
                     message: "Informasi produk telah diperbarui!"
+                })
+            }
+
+            catch(err) {
+                console.log(err)
+                res.send(err)
+            }
+        }
+    }
+    static async DeleteProduct(req, res) {
+        const cekData = await Product.findOne({ where: {id: req.params.id, isDelete: true, deletedBy: req.user_id} })
+
+        if(!cekData) {
+            res.status(400).send({
+                status: 400,
+                message: 'Tidak Ada Produk!'
+            })
+        }
+
+        else {
+            try {
+                await Product.delete({
+                    user_id: req.body.user_id,
+                    product_name: req.body.product_name,
+                    product_category: req.body.product_category,
+                    product_desc: req.body.product_desc,
+                    product_price: req.body.product_price,
+                    product_img: req.body.product_img,
+                    location: req.body.location,
+                    status: req.body.status
+                }, { where: {id: req.params.id} })
+
+                res.status(201).json({
+                    status: 201,
+                    message: "Produk telah dihapus!"
                 })
             }
 
