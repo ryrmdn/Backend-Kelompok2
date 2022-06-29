@@ -10,6 +10,7 @@ router.post("/register", userControl.Register);
 router.post("/login", userControl.Login);
 router.post(
   "/profile/update/:id",
+  auth,
   multer.single("profile_img"),
   userControl.editUser
 );
