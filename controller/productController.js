@@ -106,7 +106,7 @@ module.exports = class {
                     product_category: req.body.product_category,
                     product_desc: req.body.product_desc,
                     product_price: req.body.product_price,
-                    product_img: req.body.product_img,
+                    product_img: req.file.path,
                     location: req.body.location,
                     status: req.body.status
                 })
@@ -143,7 +143,7 @@ module.exports = class {
                     product_category: req.body.product_category,
                     product_desc: req.body.product_desc,
                     product_price: req.body.product_price,
-                    product_img: req.body.product_img,
+                    product_img: req.file.path,
                     location: req.body.location,
                     status: req.body.status
                 }, { where: {id: req.params.id} })

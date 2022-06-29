@@ -20,6 +20,12 @@ module.exports = {
       req_price: {
         type: Sequelize.INTEGER
       },
+      status: {
+        type: Sequelize.STRING
+      },
+      isRead: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
