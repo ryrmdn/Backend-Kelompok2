@@ -9,14 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // Product.belongsTo(models.User, {
-      //   foreignKey: "user_id",
-      //   as: "user",
-      // });
-      // Product.hasMany(models.Transaction, {
-      //   foreignKey: "transaction_id",
-      //   as: "transaction",
-      // });
+      Product.belongsTo(models.User, {
+        foreignKey: "user_id",
+        as: "user"
+      });
+      Product.hasMany(models.Transaction, {
+        foreignKey: "product_id",
+        as: "transactions",
+      });
     }
   }
   Product.init(
@@ -35,5 +35,8 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Product",
     }
   );
+  // Product.associate = (models) => {
+
+  // }
   return Product;
 };
