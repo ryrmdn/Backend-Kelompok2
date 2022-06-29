@@ -131,7 +131,8 @@ module.exports = class {
             }, { where: {id: req.body.notification_id} })
 
             const result = await Transaction.create({
-                user_id: req.body.user_id,
+                seller_id: req.body.seller_id,
+                buyer_id: req.body.buyer_id,
                 product_id: req.body.product_id,
                 status: 'Selesai'
             })
@@ -148,9 +149,51 @@ module.exports = class {
         }
     }
 
-    static async cancelTransactionHistory(req, res) {}
+    static async cancelTransactionHistory(req, res) {
+        try {
+            const update = await Transaction.update({
+                status: 'Dibatalkan'
+            }, { where: {id: req.body.transaction_id} })
 
-    static async getTransactionBuyer(req, res) {}
+            res.status(201).json({
+                status: 201,
+                message: 'Transaksi telah dibatalkan.'
+            })
+        }
 
-    static async getTransactionSeller(req, res) {}
+        catch(err) {
+            console.log(err)
+            res.send(err)
+        }
+    }
+
+    static async getTransactionBuyer(req, res) {
+        try {
+            const result = await Transaction.findAll({ where: {buyer_id: req.params.userid} })
+            res.status(200).json({
+                status: 200,
+                data: result
+            })
+        }
+
+        catch(err) {
+            console.log(err)
+            res.send(err)
+        }
+    }
+
+    static async getTransactionSeller(req, res) {
+        try {
+            const result = await Transaction.findAll({ where: {seller_id: req.params.userid} })
+            res.status(200).json({
+                status: 200,
+                data: result
+            })
+        }
+
+        catch(err) {
+            console.log(err)
+            res.send(err)
+        }
+    }
 }
